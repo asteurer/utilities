@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -29,58 +28,10 @@ type AccessKeys struct {
 
 func main() {
 	// This is the endpoint against which the mfaToken is validated
-	serialNumber := ""
-
-	var mfaToken string
-	for {
-		reader := bufio.NewReader(os.Stdin)
-		fmt.Print("Enter MFA token: ")
-		tokenCodeInput, err := reader.ReadString('\n')
-		if err != nil {
-			log.Fatalf("Failed to read token code: %s\n", err)
-		}
-
-		mfaToken = strings.TrimSpace(tokenCodeInput)
-		if mfaToken == "" {
-			log.Print("mfa token is required")
-		} else {
-			break
-		}
-	}
-
-	var awsAccessKey string
-	for {
-		reader := bufio.NewReader(os.Stdin)
-		fmt.Print("Enter AWS access key: ")
-		accessKeyInput, err := reader.ReadString('\n')
-		if err != nil {
-			log.Fatalf("Failed to read AWS access key: %s\n", err)
-		}
-
-		awsAccessKey = strings.TrimSpace(accessKeyInput)
-		if awsAccessKey == "" {
-			log.Print("AWS access key is required")
-		} else {
-			break
-		}
-	}
-
-	var awsSecretAccessKey string
-	for {
-		reader := bufio.NewReader(os.Stdin)
-		fmt.Print("Enter AWS secret access key: ")
-		accessKeyInput, err := reader.ReadString('\n')
-		if err != nil {
-			log.Fatalf("Failed to read AWS secret access key: %s\n", err)
-		}
-
-		awsSecretAccessKey = strings.TrimSpace(accessKeyInput)
-		if awsSecretAccessKey == "" {
-			log.Print("AWS secret access key is required")
-		} else {
-			break
-		}
-	}
+	serialNumber := os.Getenv("SERIAL_NUMBER")
+	mfaToken := os.Getenv("MFA_TOKEN")
+	awsAccessKey := os.Getenv("AWS_ACCESS_KEY_ID")
+	awsSecretAccessKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
 
 	// Remove any existing session token before making the request
 	homeDir, err := os.UserHomeDir()
