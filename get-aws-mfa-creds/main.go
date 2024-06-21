@@ -31,7 +31,6 @@ func main() {
 	awsAccessKey := os.Getenv("AWS_ACCESS_KEY_ID")
 	awsSecretAccessKey := os.Getenv("AWS_SECRET_ACCESS_KEY")
 
-	// Remove any existing session token before making the request
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		log.Fatalf("Failed to get home directory: %s\n", err)
