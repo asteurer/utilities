@@ -51,7 +51,6 @@ func execCmd(cmd *exec.Cmd, env []string) (CommandOutput, error) {
 	}
 
 	if err := cmd.Run(); err != nil {
-		// io.WriteString(os.Stderr, "ERROR: "+err.Error()+"\n")
 		return output, err
 	}
 
